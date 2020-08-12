@@ -16,15 +16,18 @@ app.config_from_object('django.conf:settings')
 app.conf.beat_schedule = {
 	'send_email_every_day_task':{
 	'task': 'demo.tasks.send_email_every_day_task',
-	'schedule': crontab(minute='13', hour= '17',day_of_month='*',month_of_year='*'),
+	# task to send emails at 1:30 AM every data
+	'schedule': crontab(minute = '30', hour = '1',day_of_month = '*',month_of_year = '*'),
 	},
 	'send_email_every_month_task': {
 	'task': 'demo.tasks.send_email_every_month_task',
-	'schedule': crontab( minute=30, hour=1, day_of_month=1)
+	# task to send emails at 1:30 AM every first day in month
+	'schedule': crontab( minute = '30' , hour = '1', day_of_month = '1')
 	},
 	'send_email_every_week_task' :{
+	# task to send emails at 1:30Am every first week of month
 	'task': 'demo.tasks.send_email_every_week_task',
-	'schedule': crontab( minute=30, hour=1, day_of_week=1)
+	'schedule': crontab( minute = '30', hour = '1', day_of_week = '1')
 	}
 }
 

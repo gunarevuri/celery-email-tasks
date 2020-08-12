@@ -28,6 +28,10 @@ def add(a,b):
 
 @shared_task(name='send_email_every_month_task')
 def send_email_every_month_task():
+	"""
+	Function to send emails to the subscribers realated to their specific task once in a week
+	"""
+	
  # Get all tasks within month
 	days_30=(timezone.now() - timedelta(days=30))
 	# date_filtered=Task.objects.filter(created__gte=days_30).all()
@@ -69,6 +73,9 @@ def send_email_every_month_task():
 # )
 @shared_task(name='send_email_every_day_task')
 def send_email_every_day_task():
+	"""
+	Function to send emails to all subscribers related to their tasks in a day
+	"""
 
  # Get all tasks within day
 	days_diff=(timezone.now() - timedelta(days=1))
@@ -109,6 +116,9 @@ def send_email_every_day_task():
 
 @shared_task
 def send_email_every_week_task():
+	"""
+	Function to send emails to the subscribers realated to their specific task once in a week
+	"""
 
  # Get all tasks within a week
 	days_7=(timezone.now() - timedelta(days = 7))
@@ -156,15 +166,15 @@ def send_email_task():
 
 
 	return None
-@shared_task(name="send_tasks")
-def send_tasks(tasks_json_list, email_list):
-	logger.info("sending emails")
-	send_mail("Updated Tasks", 
-		"Message for updated tasks {}".format(tasks_json_list), 
-		"revuriguna@gmail.com",
-		email_list
-		)
-	return None
+# @shared_task(name="send_tasks")
+# def send_tasks(tasks_json_list, email_list):
+# 	logger.info("sending emails")
+# 	send_mail("Updated Tasks", 
+# 		"Message for updated tasks {}".format(tasks_json_list), 
+# 		"revuriguna@gmail.com",
+# 		email_list
+# 		)
+# 	return None
 
 
 
