@@ -21,9 +21,6 @@ logger = get_task_logger(__name__)
 def sleepy(duration):
 	sleep(duration)
 	return None
-@shared_task(name="add")
-def add(a,b):
-	return a+b
 
 
 @shared_task(name='send_email_every_month_task')
@@ -31,7 +28,7 @@ def send_email_every_month_task():
 	"""
 	Function to send emails to the subscribers realated to their specific task once in a week
 	"""
-	
+
  # Get all tasks within month
 	days_30=(timezone.now() - timedelta(days=30))
 	# date_filtered=Task.objects.filter(created__gte=days_30).all()
@@ -56,7 +53,9 @@ def send_email_every_month_task():
 			for key, val in obj.items():
 				if key == "fields":
 					for t, d in obj[key].items():
-						tasks_message=tasks_message+" $ "+str(obj[key][t])
+						tasks_message=tasks_message+"  "+str(obj[key][t])
+
+		# send mail requires 4 parameters "heading", "message body", "from", "to list"				
 	
 		logger.info("sending emails to type {} subscribers".format(i))
 		send_mail("Updated Tasks", 
@@ -104,9 +103,11 @@ def send_email_every_day_task():
 			for key, val in obj.items():
 				if key == "fields":
 					for t, d in obj[key].items():
-						tasks_message=tasks_message+" $ "+str(obj[key][t])
+						tasks_message=tasks_message+"  "+str(obj[key][t])
 	
 		logger.info("sending emails to type {} subscribers".format(i))
+
+		# send mail requires 4 parameters "heading", "message body", "from", "to list"
 		send_mail("Updated Tasks", 
 			"Message for updated tasks {}".format(tasks_message), 
 			"revuriguna@gmail.com",
@@ -144,8 +145,8 @@ def send_email_every_week_task():
 			for key, val in obj.items():
 				if key == "fields":
 					for t, d in obj[key].items():
-						tasks_message=tasks_message+" $ "+str(obj[key][t])
-	
+						tasks_message=tasks_message+"  "+str(obj[key][t])
+	# send mail requires 4 parameters "heading", "message body", "from", "to list"
 		logger.info("sending emails to type {} subscribers".format(i))
 		send_mail("Updated Tasks", 
 			"Message for updated tasks {}".format(tasks_message), 
